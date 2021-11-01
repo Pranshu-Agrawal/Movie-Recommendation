@@ -1,1 +1,17 @@
-We'll recommend you movies based on the previous movies you liked.
+# We'll recommend you movies based on the previous movies you liked.
+
+Movies Data File Structure (movies.csv)
+  movieId,title,genres
+
+Ratings Data File Structure (ratings.csv)
+  userId,movieId,rating,timestamp
+
+Links Data File Structure (links.csv)
+  movieId,imdbId,tmdbId
+
+Tags Data File Structure (tags.csv)
+  userId,movieId,tag,timestamp
+  
+
+
+
