@@ -5,6 +5,7 @@ from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re
 import csv
+import random
 from flask import Flask
 from flask import request
 from flask import render_template
@@ -110,7 +111,7 @@ def index():
 		cursor9 = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 		cursor9.execute('SELECT * FROM movies order by title asc')
 		table = cursor9.fetchall()
-		print(type(table))
+# 		print(type(table))
 		ln=len(table)
 		mov_li=list()
 		for qwe in table:
@@ -143,7 +144,8 @@ def index():
 					li = get_movie_recommendation(mov['movie'])['Title']
 					sup_li.extend(li[0:math.ceil(10/le)])
 				except IndexError :
-					pass                                
+					pass
+			random.shuffle(sup_li)
 			return render_template('index.html', movie_names=movie_names , watched_movie=watched_movie, movie_list=sup_li,)            
 		if request.method == 'POST' and 'movie' in request.form:
 				movie = request.form['movie']
@@ -181,6 +183,7 @@ def index():
 						except IndexError :
 							pass                            
 					# li = get_movie_recommendation(movie)['Title']
+					random.shuffle(sup_li)
 					return render_template('index.html', movie_names=movie_names, movie_list=sup_li, watched_movie=watched_movie)
 				except IndexError :
 						return render_template('index.html', watched_movie=watched_movie, movie_names=movie_names, er="Doesn't have enough ratings to recommend!")
